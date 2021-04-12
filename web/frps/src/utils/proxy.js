@@ -22,7 +22,7 @@ class TcpProxy extends BaseProxy {
         super(proxyStats)
         this.type = "tcp"
         if (proxyStats.conf != null) {
-            this.addr = proxyStats.conf.bind_addr + ":" + proxyStats.conf.remote_port
+            this.addr = ":" + proxyStats.conf.remote_port
             this.port = proxyStats.conf.remote_port
         } else {
             this.addr = ""
@@ -36,7 +36,7 @@ class UdpProxy extends BaseProxy {
         super(proxyStats)
         this.type = "udp"
         if (proxyStats.conf != null) {
-            this.addr = proxyStats.conf.bind_addr + ":" + proxyStats.conf.remote_port
+            this.addr = ":" + proxyStats.conf.remote_port
             this.port = proxyStats.conf.remote_port
         } else {
             this.addr = ""
@@ -54,8 +54,8 @@ class HttpProxy extends BaseProxy {
             this.custom_domains = proxyStats.conf.custom_domains
             this.host_header_rewrite = proxyStats.conf.host_header_rewrite
             this.locations = proxyStats.conf.locations
-            if (proxyStats.conf.sub_domain != "") {
-                this.subdomain = proxyStats.conf.sub_domain + "." + subdomain_host
+            if (proxyStats.conf.subdomain != "") {
+                this.subdomain = proxyStats.conf.subdomain + "." + subdomain_host
             } else {
                 this.subdomain = ""
             }
@@ -75,8 +75,8 @@ class HttpsProxy extends BaseProxy {
         this.port = port
         if (proxyStats.conf != null) {
             this.custom_domains = proxyStats.conf.custom_domains
-            if (proxyStats.conf.sub_domain != "") {
-                this.subdomain = proxyStats.conf.sub_domain + "." + subdomain_host
+            if (proxyStats.conf.subdomain != "") {
+                this.subdomain = proxyStats.conf.subdomain + "." + subdomain_host
             } else {
                 this.subdomain = ""
             }
@@ -87,4 +87,11 @@ class HttpsProxy extends BaseProxy {
     }
 }
 
-export {BaseProxy, TcpProxy, UdpProxy, HttpProxy, HttpsProxy}
+class StcpProxy extends BaseProxy {
+    constructor(proxyStats) {
+        super(proxyStats)
+        this.type = "stcp"
+    }
+}
+
+export {BaseProxy, TcpProxy, UdpProxy, HttpProxy, HttpsProxy, StcpProxy}
